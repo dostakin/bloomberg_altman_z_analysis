@@ -1,0 +1,12 @@
+import pandas as pd
+import numpy as np
+directory="altman z_all(sheet1-2).xlsx"
+cols = pd.read_excel(directory, encoding="latin-1", skiprows = [0,1,2], na_values = ["#N/A N/A", "#N/A Review"], sheet_name = "Sheet1", header=None, nrows=1, index_col = 0).values[0]
+data_r = pd.read_excel(directory, encoding="latin-1", skiprows = [0,1,2,4,5], na_values = ["#N/A N/A", "#N/A Review"], sheet_name = "Sheet1", index_col = 0)
+data_r.columns = cols
+data_dropped = data_r.dropna(axis=1,how="all")
+data_nodup = data_dropped.loc[:,~data_dropped.columns.duplicated()]
+data_nodup
+#After cleaning and formatting by removing companies that didn't have Altman Z Score field and removing duplicate companies
+#there are 6156 companies upon which filtering based on Altman Z Score will be conducted
+
